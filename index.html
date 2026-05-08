@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heart Click</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      overflow:hidden;
+      background:black;
+      height:100vh;
+      cursor:pointer;
+      font-family:Arial, sans-serif;
+      position:relative;
+    }
+
+    .heart{
+      position:absolute;
+      color:red;
+      font-size:30px;
+      animation:float 1s linear forwards;
+      user-select:none;
+      pointer-events:none;
+    }
+
+    @keyframes float{
+      0%{
+        transform:scale(0.5) translateY(0);
+        opacity:1;
+      }
+      100%{
+        transform:scale(2) translateY(-100px);
+        opacity:0;
+      }
+    }
+
+    .text{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      color:white;
+      font-size:60px;
+      font-weight:bold;
+      animation:shake 0.3s infinite;
+    }
+
+    @keyframes shake{
+      0%{ transform:translate(-50%, -50%) rotate(0deg);}
+      25%{ transform:translate(-50%, -50%) rotate(3deg);}
+      50%{ transform:translate(-50%, -50%) rotate(-3deg);}
+      75%{ transform:translate(-50%, -50%) rotate(3deg);}
+      100%{ transform:translate(-50%, -50%) rotate(0deg);}
+    }
+  </style>
+</head>
+
+<body>
+
+<script>
+  let count = 0;
+  let shown = false;
+
+  document.body.addEventListener("click", (e) => {
+    count++;
+
+    // tạo trái tim
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤";
+
+    heart.style.left = e.clientX + "px";
+    heart.style.top = e.clientY + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 1000);
+
+    // bấm nhiều thì hiện chữ
+    if(count >= 20 && !shown){
+      shown = true;
+
+      const text = document.createElement("div");
+      text.className = "text";
+      text.innerHTML = "DCM";
+
+      document.body.appendChild(text);
+    }
+  });
+</script>
+
+</body>
+</html>
